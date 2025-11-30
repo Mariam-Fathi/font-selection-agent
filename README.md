@@ -32,7 +32,7 @@ The Font Selection Agent automates the font selection process:
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/Mariam-Fathi/font-selection-agent.git
    cd font-selection-agent
    ```
 
