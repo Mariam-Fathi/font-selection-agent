@@ -16,18 +16,22 @@ from google.adk.tools import ToolContext
 def take_font_screenshots(
     font_names: List[str],
     file_path: str,
+    url: Optional[str] = None,
     text: str = "Sample Text",
     tool_context: Optional[ToolContext] = None,
 ) -> Dict[str, Any]:
     """
-    Take screenshots of an HTML file with different fonts applied.
+    Take screenshots of a UI file with different fonts applied.
     
-    This is a general-purpose tool that works with any HTML file.
-    It modifies the HTML file to use different fonts and takes screenshots.
+    Works with any UI file type: HTML, React (JSX/TSX), Vue, Angular, etc.
+    For HTML files: serves locally and takes screenshots.
+    For other files: modifies the file and takes screenshots from provided URL (dev server).
     
     Args:
         font_names: List of font names to test (e.g., ["Comforter Brush", "Dancing Script"])
-        file_path: Path to the HTML file (e.g., "test-design.html" or full path)
+        file_path: Path to the UI file (HTML, JSX, TSX, Vue, etc.) or full path
+        url: Optional URL for running application (e.g., "http://localhost:3000"). 
+             Required for non-HTML files. If not provided for HTML, serves locally.
         text: Text content to display (default: "Sample Text")
         tool_context: Tool context (automatically provided by ADK)
     
@@ -46,10 +50,17 @@ def take_font_screenshots(
         }
     
     Example:
+        # HTML file (served locally):
         take_font_screenshots(
-            font_names=["Comforter Brush", "Dancing Script", "Caveat"],
-            file_path="test-design.html",
-            text="Sample Text"
+            font_names=["Comforter Brush", "Dancing Script"],
+            file_path="test-design.html"
+        )
+        
+        # React component (with dev server):
+        take_font_screenshots(
+            font_names=["Roboto", "Montserrat"],
+            file_path="src/components/Hero.tsx",
+            url="http://localhost:3000"
         )
     """
     try:
@@ -66,6 +77,19 @@ def take_font_screenshots(
                 "font_names": font_names
             }
         
+        # Detect file type
+        file_ext = file_path_obj.suffix.lower()
+        is_html = file_ext in ['.html', '.htm']
+        
+        # For non-HTML files, URL is required
+        if not is_html and not url:
+            return {
+                "status": "error",
+                "message": f"For {file_ext} files, please provide a URL to your running application (e.g., 'http://localhost:3000'). Start your dev server first.",
+                "font_names": font_names,
+                "suggestion": "Start your dev server and provide the URL parameter"
+            }
+        
         # Create screenshots directory
         screenshots_dir = Path("previews") / "screenshots"
         screenshots_dir.mkdir(parents=True, exist_ok=True)
@@ -76,23 +100,62 @@ def take_font_screenshots(
         
         screenshots = []
         
-        # Start a simple HTTP server to serve the HTML file
-        port = 8000
-        server_thread = _start_local_server(file_path_obj.parent, port)
-        time.sleep(1)  # Give server time to start
+        # Determine screenshot URL
+        if is_html:
+            # For HTML files, serve locally
+            port = 8000
+            server_thread = _start_local_server(file_path_obj.parent, port)
+            time.sleep(1)  # Give server time to start
+            screenshot_url = f"http://localhost:{port}/{file_path_obj.name}"
+        else:
+            # For other files, use provided URL
+            screenshot_url = url.rstrip('/')
         
         # Process each font
         for font_name in font_names:
             try:
-                # Modify file with new font
-                modified_content = _replace_font_in_html(original_content, font_name, text)
+                # Modify file with new font based on file type
+                if is_html:
+                    modified_content = _replace_font_in_html(original_content, font_name, text)
+                else:
+                    modified_content = _replace_font_in_component(original_content, font_name, text, file_ext)
+                
+                # Debug: Check if font was actually replaced
+                if not is_html and font_name not in modified_content:
+                    # If no fontFamily found, try to inject it into the main component
+                    # Look for return statement or main component
+                    import re
+                    # Try to find style={{ ... }} and add fontFamily
+                    style_pattern = r'(style=\{\{)([^}]+)(\}\})'
+                    if re.search(style_pattern, modified_content):
+                        # Add fontFamily to existing style
+                        modified_content = re.sub(
+                            style_pattern,
+                            f'\\1\\2, fontFamily: "{font_name}"\\3',
+                            modified_content,
+                            count=1
+                        )
+                    else:
+                        # Try to add style prop to main element (look for first <div or return statement)
+                        return_match = re.search(r'(return\s*\([^<]*<)([a-zA-Z]+)', modified_content)
+                        if return_match:
+                            # Add style prop after opening tag
+                            tag_start = return_match.end()
+                            modified_content = (
+                                modified_content[:tag_start] +
+                                f' style={{{{ fontFamily: "{font_name}" }}}}' +
+                                modified_content[tag_start:]
+                            )
                 
                 # Write modified version
                 with open(file_path_obj, "w", encoding="utf-8") as f:
                     f.write(modified_content)
                 
-                # Wait a moment for file to be written
-                time.sleep(0.5)
+                # Wait for changes to take effect
+                if is_html:
+                    time.sleep(0.5)  # HTML served locally
+                else:
+                    time.sleep(6)  # Wait longer for dev server to recompile and fonts to load (React/Vite/etc)
                 
                 # Take screenshot
                 screenshot_path = screenshots_dir / f"{font_name.lower().replace(' ', '_')}.png"
@@ -100,7 +163,7 @@ def take_font_screenshots(
                 sys.stdout.write(f"Taking screenshot with {font_name}...\n")
                 sys.stdout.flush()
                 
-                screenshot_result = _take_screenshot(f"http://localhost:{port}/{file_path_obj.name}", str(screenshot_path), font_name)
+                screenshot_result = _take_screenshot(screenshot_url, str(screenshot_path), font_name)
                 
                 if screenshot_result.get("success"):
                     if screenshot_path.exists() and screenshot_path.stat().st_size > 0:
@@ -201,6 +264,49 @@ def _start_local_server(directory: Path, port: int) -> threading.Thread:
     return thread
 
 
+def _replace_font_in_component(content: str, font_name: str, text: str, file_ext: str) -> str:
+    """Replace font in React/Vue/Angular components - matches multiple patterns"""
+    import re
+    
+    modified = content
+    
+    # Pattern 1: Match fontFamily with double quotes: fontFamily: "Font Name"
+    # Most common React pattern: style={{ fontFamily: "Roboto" }}
+    pattern1 = r'(fontFamily\s*:\s*["\'])([^"\']+)(["\'])'
+    replacement1 = f'\\1{font_name}\\3'
+    modified = re.sub(pattern1, replacement1, modified)
+    
+    # Pattern 2: Match fontFamily with single quotes
+    pattern2 = r"(fontFamily\s*:\s*['\"])([^'\"]+)(['\"])"
+    replacement2 = f'\\1{font_name}\\3'
+    modified = re.sub(pattern2, replacement2, modified)
+    
+    # Pattern 3: Match fontFamily with fallback fonts: fontFamily: "Font", sans-serif
+    pattern3 = r'(fontFamily\s*:\s*["\'])([^"\']+)(["\'],\s*(?:sans-serif|serif|cursive|monospace))'
+    replacement3 = f'\\1{font_name}\\3'
+    modified = re.sub(pattern3, replacement3, modified)
+    
+    # Pattern 4: Match font-family in CSS strings (less common in React)
+    pattern4 = r"(font-family\s*:\s*['\"])([^'\"]+)(['\"])"
+    replacement4 = f'\\1{font_name}\\3'
+    modified = re.sub(pattern4, replacement4, modified)
+    
+    # Pattern 5: Match in template literals or backticks
+    pattern5 = r'(fontFamily\s*:\s*`)([^`]+)(`)'
+    replacement5 = f'\\1{font_name}\\3'
+    modified = re.sub(pattern5, replacement5, modified)
+    
+    # Pattern 6: Match any fontFamily assignment (catch-all, most general)
+    # This should catch any remaining patterns
+    if font_name not in modified or content == modified:
+        # Try a more aggressive pattern - match any fontFamily: "anything"
+        pattern6 = r'(fontFamily\s*:\s*["\'])([^"\']+)(["\'])'
+        if re.search(pattern6, modified):
+            modified = re.sub(pattern6, f'\\1{font_name}\\3', modified)
+    
+    return modified
+
+
 def _replace_font_in_html(content: str, font_name: str, text: str) -> str:
     """Replace font in HTML file - works with various font declaration patterns"""
     import re
@@ -254,12 +360,46 @@ async def _take_screenshot_async(url: str, screenshot_path: str, font_name: str)
             page = await browser.new_page()
             
             try:
-                # Navigate to the HTML file
+                # Navigate to the page
                 await page.goto(url, wait_until="networkidle", timeout=30000)
+                
+                # Inject Google Fonts CSS directly into the page
+                font_family_encoded = font_name.replace(" ", "+")
+                font_css_url = f"https://fonts.googleapis.com/css2?family={font_family_encoded}:wght@400&display=swap"
+                
+                # Add Google Fonts link to head
+                await page.evaluate(f"""
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = '{font_css_url}';
+                    document.head.appendChild(link);
+                """)
+                
+                # Also inject CSS to apply font to body and all elements as fallback
+                await page.evaluate(f"""
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        * {{
+                            font-family: "{font_name}", sans-serif !important;
+                        }}
+                        body {{
+                            font-family: "{font_name}", sans-serif !important;
+                        }}
+                    `;
+                    document.head.appendChild(style);
+                """)
                 
                 # Wait for fonts to load
                 await page.wait_for_load_state("networkidle")
-                await page.wait_for_timeout(2000)  # Extra time for font rendering
+                await page.wait_for_timeout(4000)  # Extra time for font rendering and dev server recompilation
+                
+                # Force font to load by checking if it's available
+                await page.evaluate(f"""
+                    document.fonts.ready.then(() => {{
+                        console.log('Fonts loaded');
+                    }});
+                """)
+                await page.wait_for_timeout(2000)  # Wait for fonts.ready
                 
                 # Take full page screenshot
                 await page.screenshot(path=str(screenshot_path), full_page=True)
@@ -346,12 +486,46 @@ def _take_screenshot(url: str, screenshot_path: str, font_name: str) -> Dict[str
                 page = browser.new_page()
                 
                 try:
-                    # Navigate to the HTML file
+                    # Navigate to the page
                     page.goto(url, wait_until="networkidle", timeout=30000)
+                    
+                    # Inject Google Fonts CSS directly into the page
+                    font_family_encoded = font_name.replace(" ", "+")
+                    font_css_url = f"https://fonts.googleapis.com/css2?family={font_family_encoded}:wght@400&display=swap"
+                    
+                    # Add Google Fonts link to head
+                    page.evaluate(f"""
+                        const link = document.createElement('link');
+                        link.rel = 'stylesheet';
+                        link.href = '{font_css_url}';
+                        document.head.appendChild(link);
+                    """)
+                    
+                    # Also inject CSS to apply font to body and all elements as fallback
+                    page.evaluate(f"""
+                        const style = document.createElement('style');
+                        style.textContent = `
+                            * {{
+                                font-family: "{font_name}", sans-serif !important;
+                            }}
+                            body {{
+                                font-family: "{font_name}", sans-serif !important;
+                            }}
+                        `;
+                        document.head.appendChild(style);
+                    """)
                     
                     # Wait for fonts to load
                     page.wait_for_load_state("networkidle")
-                    page.wait_for_timeout(2000)  # Extra time for font rendering
+                    page.wait_for_timeout(4000)  # Extra time for font rendering and dev server recompilation
+                    
+                    # Force font to load
+                    page.evaluate(f"""
+                        document.fonts.ready.then(() => {{
+                            console.log('Fonts loaded');
+                        }});
+                    """)
+                    page.wait_for_timeout(2000)  # Wait for fonts.ready
                     
                     # Take full page screenshot
                     page.screenshot(path=str(screenshot_path), full_page=True)

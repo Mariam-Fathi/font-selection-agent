@@ -24,21 +24,13 @@ if __name__ == "__main__":
     
     # Run the agent interactively
     print("Font Selection Agent")
-    print("=" * 50)
-    print("\nI can help you find the perfect font for your design!")
-    print("\nI'll ask you for:")
-    print("  1. The path to your HTML file (e.g., 'test-design.html')")
-    print("  2. Then I'll show you font category options to choose from")
-    print("\nThen I'll search for fonts and take screenshots automatically!")
-    print("\nExample:")
-    print('  You: "I want to test fonts"')
-    print('  Agent: "What is the path to your HTML file?"')
-    print('  You: "test-design.html"')
-    print('  Agent: "Choose a category: 1. Handwriting, 2. Serif, 3. Sans-serif..."')
-    print('  You: "1"')
-    print("\n" + "=" * 50 + "\n")
+    print("=" * 50 + "\n")
     
     async def run_interactive():
+        # Start with first question
+        print("What is the path to your UI file?")
+        print()
+        
         # Run the agent interactively
         while True:
             try:
@@ -56,7 +48,13 @@ if __name__ == "__main__":
                 print("\n\nGoodbye!")
                 break
             except Exception as e:
-                print(f"\nError: {e}\n")
+                error_msg = str(e)
+                if "503" in error_msg or "overloaded" in error_msg.lower():
+                    print("\n⚠️  The API is temporarily overloaded. Please try again in a moment.\n")
+                elif "API key" in error_msg or "authentication" in error_msg.lower():
+                    print("\n⚠️  API key error. Please check your .env file and GOOGLE_API_KEY.\n")
+                else:
+                    print(f"\n⚠️  Error: {error_msg}\n")
     
     # Run the async function
     asyncio.run(run_interactive())

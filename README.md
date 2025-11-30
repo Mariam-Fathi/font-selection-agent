@@ -5,15 +5,17 @@ An AI-powered assistant that helps you find the perfect font for your design pro
 ## What It Does
 
 The Font Selection Agent automates the font selection process:
-1. **Asks for your file path**
-2. **Shows font category options** (Handwriting, Serif, Sans-serif, Display, Monospace)
-3. **Searches for matching fonts** from a curated list of 40 Google Fonts
-4. **Takes screenshots automatically** of your design with different fonts
-5. **Provides recommendations** with visual comparisons
+1. **Asks for your UI file path** (HTML, React, Vue, Angular, etc.)
+2. **Asks for URL** (if needed for non-HTML files with dev server)
+3. **Shows font category options** (Handwriting, Serif, Sans-serif, Display, Monospace)
+4. **Searches for matching fonts** from a curated list of 40 Google Fonts
+5. **Takes screenshots automatically** of your design with different fonts
+6. **Provides recommendations** with visual comparisons
 
 ## Features
 
 - **User-Friendly Interface**: Simple step-by-step workflow
+- **Works with Any UI File**: HTML, React, Vue, Angular, and more
 - **40 Curated Fonts**: Handpicked Google Fonts across 5 categories
 - **Automatic Screenshots**: See fonts in your actual design context
 - **Visual Comparison**: Side-by-side screenshots for easy decision-making
@@ -56,13 +58,22 @@ The Font Selection Agent automates the font selection process:
    ```
 
 2. **Follow the prompts**
-   - Provide your HTML file path (e.g., `test-design.html`)
+   - Provide your UI file path (e.g., `test-design.html` or `src/components/Hero.tsx`)
+   - If non-HTML file: provide your dev server URL (e.g., `http://localhost:3000`)
    - Choose a font category (1-5)
    - Wait for screenshots to be generated
 
 3. **View results**
    - Screenshots are saved in `previews/screenshots/`
    - Open the images to compare fonts
+
+## 📝 Supported File Types
+
+- **HTML**: `.html`, `.htm` - Served locally, no dev server needed
+- **React**: `.jsx`, `.tsx` - Requires running dev server (provide URL)
+- **Vue**: `.vue` - Requires running dev server (provide URL)
+- **Angular**: `.ts`, `.html` - Requires running dev server (provide URL)
+- **Any UI framework**: Works with any file that contains font declarations
 
 ## Available Font Categories
 
@@ -75,11 +86,13 @@ The Font Selection Agent automates the font selection process:
 ## Example Usage
 
 ```
-You: I want to test fonts
+Agent: What is the path to your UI file? (e.g., 'test-design.html' or 'src/components/Hero.tsx')
 
-Agent: What is the path to your HTML file? (e.g., 'test-design.html')
+You: src/components/Hero.tsx
 
-You: test-design.html
+Agent: What is the URL of your running application? (e.g., 'http://localhost:3000')
+
+You: http://localhost:3000
 
 Agent: Great! Now choose a font category:
        1. Handwriting (14 fonts) - Casual, script, handwritten styles
@@ -96,10 +109,16 @@ You: 1
 ## How It Works
 
 1. **Font Search**: Searches curated list of 40 Google Fonts by category
-2. **File Modification**: Temporarily modifies your HTML file to use different fonts
-3. **Screenshot Capture**: Uses Playwright to take screenshots via local HTTP server
-4. **File Restoration**: Automatically restores your original file
-5. **Results**: Saves screenshots for visual comparison
+2. **File Detection**: Detects file type (HTML, React, Vue, etc.)
+3. **File Modification**: Temporarily modifies your UI file to use different fonts
+   - For HTML: Injects Google Fonts CSS and updates font-family declarations
+   - For React/Vue/Angular: Updates fontFamily in style objects and injects CSS via browser
+4. **Screenshot Capture**: 
+   - HTML files: Uses local HTTP server (port 8000)
+   - Other files: Uses your provided dev server URL (must be running)
+   - Injects Google Fonts CSS directly into the page for reliable font loading
+5. **File Restoration**: Automatically restores your original file after screenshots
+6. **Results**: Saves screenshots in `previews/screenshots/` for visual comparison
 
 ## Requirements
 
