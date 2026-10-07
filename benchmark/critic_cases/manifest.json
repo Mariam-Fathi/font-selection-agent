@@ -1,0 +1,1805 @@
+[
+ {
+  "id": "bilingual__cairo_play",
+  "page": "bilingual",
+  "font": "Cairo Play",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "bilingual__cairo_play.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "bilingual__cairo_play__cut_off_text",
+  "page": "bilingual",
+  "font": "Cairo Play",
+  "damage": "cut_off_text",
+  "clean_twin": "bilingual__cairo_play",
+  "element": "1",
+  "element_text": "English",
+  "candidate": "bilingual__cairo_play__cut_off_text.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "<a> \"English\" is cut off by its container (22px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "bilingual__cairo_play__wrapped_label",
+  "page": "bilingual",
+  "font": "Cairo Play",
+  "damage": "wrapped_label",
+  "clean_twin": "bilingual__cairo_play",
+  "element": "4",
+  "element_text": "اطلب فنيًا الآن",
+  "candidate": "bilingual__cairo_play__wrapped_label.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "<a> \"اطلب فنيًا الآن\" wraps onto 3 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "bilingual__cairo_play__mixed_fonts",
+  "page": "bilingual",
+  "font": "Cairo Play",
+  "damage": "mixed_fonts",
+  "clean_twin": "bilingual__cairo_play",
+  "element": "11",
+  "element_text": "Trusted technicians, on demand",
+  "candidate": "bilingual__cairo_play__mixed_fonts.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "Cairo Play doesn't cover all the text: 6 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Trustd tchnicins, n dmnd\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "bilingual__cairo_play__faked_bold",
+  "page": "bilingual",
+  "font": "Cairo Play",
+  "damage": "faked_bold",
+  "clean_twin": "bilingual__cairo_play",
+  "element": null,
+  "element_text": "",
+  "candidate": "bilingual__cairo_play__faked_bold.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "7 bold element(s) are faked by the browser: no bold face of Cairo Play is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "bilingual__parastoo",
+  "page": "bilingual",
+  "font": "Parastoo",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "bilingual__parastoo.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "bilingual__parastoo__cut_off_text",
+  "page": "bilingual",
+  "font": "Parastoo",
+  "damage": "cut_off_text",
+  "clean_twin": "bilingual__parastoo",
+  "element": "4",
+  "element_text": "اطلب فنيًا الآن",
+  "candidate": "bilingual__parastoo__cut_off_text.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "<a> \"اطلب فنيًا الآن\" is cut off by its container (17px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "bilingual__parastoo__wrapped_label",
+  "page": "bilingual",
+  "font": "Parastoo",
+  "damage": "wrapped_label",
+  "clean_twin": "bilingual__parastoo",
+  "element": "4",
+  "element_text": "اطلب فنيًا الآن",
+  "candidate": "bilingual__parastoo__wrapped_label.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "<a> \"اطلب فنيًا الآن\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "bilingual__parastoo__mixed_fonts",
+  "page": "bilingual",
+  "font": "Parastoo",
+  "damage": "mixed_fonts",
+  "clean_twin": "bilingual__parastoo",
+  "element": "12",
+  "element_text": "Book a plumber, electrician or carpenter in minutes, follow ",
+  "candidate": "bilingual__parastoo__mixed_fonts.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "Parastoo doesn't cover all the text: 27 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Bk  plumbr, lctricin r crpntr in minuts,\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "bilingual__parastoo__faked_bold",
+  "page": "bilingual",
+  "font": "Parastoo",
+  "damage": "faked_bold",
+  "clean_twin": "bilingual__parastoo",
+  "element": null,
+  "element_text": "",
+  "candidate": "bilingual__parastoo__faked_bold.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "7 bold element(s) are faked by the browser: no bold face of Parastoo is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "bilingual__estedad",
+  "page": "bilingual",
+  "font": "Estedad",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "bilingual__estedad.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "bilingual__estedad__cut_off_text",
+  "page": "bilingual",
+  "font": "Estedad",
+  "damage": "cut_off_text",
+  "clean_twin": "bilingual__estedad",
+  "element": "1",
+  "element_text": "English",
+  "candidate": "bilingual__estedad__cut_off_text.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "<a> \"English\" is cut off by its container (24px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "bilingual__estedad__wrapped_label",
+  "page": "bilingual",
+  "font": "Estedad",
+  "damage": "wrapped_label",
+  "clean_twin": "bilingual__estedad",
+  "element": "4",
+  "element_text": "اطلب فنيًا الآن",
+  "candidate": "bilingual__estedad__wrapped_label.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "<a> \"اطلب فنيًا الآن\" wraps onto 3 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "bilingual__estedad__mixed_fonts",
+  "page": "bilingual",
+  "font": "Estedad",
+  "damage": "mixed_fonts",
+  "clean_twin": "bilingual__estedad",
+  "element": "11",
+  "element_text": "Trusted technicians, on demand",
+  "candidate": "bilingual__estedad__mixed_fonts.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "Estedad doesn't cover all the text: 6 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Trustd tchnicins, n dmnd\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "bilingual__estedad__faked_bold",
+  "page": "bilingual",
+  "font": "Estedad",
+  "damage": "faked_bold",
+  "clean_twin": "bilingual__estedad",
+  "element": null,
+  "element_text": "",
+  "candidate": "bilingual__estedad__faked_bold.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "7 bold element(s) are faked by the browser: no bold face of Estedad is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "bilingual__beiruti",
+  "page": "bilingual",
+  "font": "Beiruti",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "bilingual__beiruti.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "bilingual__beiruti__cut_off_text",
+  "page": "bilingual",
+  "font": "Beiruti",
+  "damage": "cut_off_text",
+  "clean_twin": "bilingual__beiruti",
+  "element": "4",
+  "element_text": "اطلب فنيًا الآن",
+  "candidate": "bilingual__beiruti__cut_off_text.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "<a> \"اطلب فنيًا الآن\" is cut off by its container (23px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "bilingual__beiruti__wrapped_label",
+  "page": "bilingual",
+  "font": "Beiruti",
+  "damage": "wrapped_label",
+  "clean_twin": "bilingual__beiruti",
+  "element": "4",
+  "element_text": "اطلب فنيًا الآن",
+  "candidate": "bilingual__beiruti__wrapped_label.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "<a> \"اطلب فنيًا الآن\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "bilingual__beiruti__mixed_fonts",
+  "page": "bilingual",
+  "font": "Beiruti",
+  "damage": "mixed_fonts",
+  "clean_twin": "bilingual__beiruti",
+  "element": "12",
+  "element_text": "Book a plumber, electrician or carpenter in minutes, follow ",
+  "candidate": "bilingual__beiruti__mixed_fonts.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "Beiruti doesn't cover all the text: 27 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Bk  plumbr, lctricin r crpntr in minuts,\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "bilingual__beiruti__faked_bold",
+  "page": "bilingual",
+  "font": "Beiruti",
+  "damage": "faked_bold",
+  "clean_twin": "bilingual__beiruti",
+  "element": null,
+  "element_text": "",
+  "candidate": "bilingual__beiruti__faked_bold.png",
+  "original": "bilingual__original.png",
+  "purpose": "an Arabic-first home-services app (plumbers, electricians) with an English section.",
+  "checks": [
+   "7 bold element(s) are faked by the browser: no bold face of Beiruti is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "dashboard__comme",
+  "page": "dashboard",
+  "font": "Comme",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "dashboard__comme.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "dashboard__comme__cut_off_text",
+  "page": "dashboard",
+  "font": "Comme",
+  "damage": "cut_off_text",
+  "clean_twin": "dashboard__comme",
+  "element": "30",
+  "element_text": "Weight (kg)",
+  "candidate": "dashboard__comme__cut_off_text.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "<th> \"Weight (kg)\" is cut off by its container (49px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "dashboard__comme__wrapped_label",
+  "page": "dashboard",
+  "font": "Comme",
+  "damage": "wrapped_label",
+  "clean_twin": "dashboard__comme",
+  "element": "43",
+  "element_text": "Sheikh Zayed, Giza",
+  "candidate": "dashboard__comme__wrapped_label.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "<td> \"Sheikh Zayed, Giza\" wraps onto 3 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "dashboard__comme__icon_shown_as_text",
+  "page": "dashboard",
+  "font": "Comme",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "dashboard__comme",
+  "element": "2",
+  "element_text": "dashboard",
+  "candidate": "dashboard__comme__icon_shown_as_text.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "icon <span> \"dashboard\" lost its icon font and renders as text",
+   "<a> \"Shipments\" is cut off by its container (30px hidden)",
+   "icon <span> \"local_shipping\" lost its icon font and renders as text",
+   "icon <span> \"group\" lost its icon font and renders as text",
+   "icon <span> \"receipt_long\" lost its icon font and renders as text",
+   "icon <span> \"settings\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "clipped_text",
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "dashboard__comme__faked_bold",
+  "page": "dashboard",
+  "font": "Comme",
+  "damage": "faked_bold",
+  "clean_twin": "dashboard__comme",
+  "element": null,
+  "element_text": "",
+  "candidate": "dashboard__comme__faked_bold.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "16 bold element(s) are faked by the browser: no bold face of Comme is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "dashboard__poppins",
+  "page": "dashboard",
+  "font": "Poppins",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "dashboard__poppins.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "dashboard__poppins__cut_off_text",
+  "page": "dashboard",
+  "font": "Poppins",
+  "damage": "cut_off_text",
+  "clean_twin": "dashboard__poppins",
+  "element": "31",
+  "element_text": "Status",
+  "candidate": "dashboard__poppins__cut_off_text.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "<th> \"Status\" is cut off by its container (26px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "dashboard__poppins__wrapped_label",
+  "page": "dashboard",
+  "font": "Poppins",
+  "damage": "wrapped_label",
+  "clean_twin": "dashboard__poppins",
+  "element": "44",
+  "element_text": "Youssef M.",
+  "candidate": "dashboard__poppins__wrapped_label.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "<td> \"Youssef M.\" overflows its box by 24px",
+   "<td> \"Youssef M.\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps",
+   "text_spill"
+  ]
+ },
+ {
+  "id": "dashboard__poppins__icon_shown_as_text",
+  "page": "dashboard",
+  "font": "Poppins",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "dashboard__poppins",
+  "element": "2",
+  "element_text": "dashboard",
+  "candidate": "dashboard__poppins__icon_shown_as_text.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "icon <span> \"dashboard\" lost its icon font and renders as text",
+   "<a> \"Shipments\" is cut off by its container (35px hidden)",
+   "icon <span> \"local_shipping\" lost its icon font and renders as text",
+   "icon <span> \"group\" lost its icon font and renders as text",
+   "icon <span> \"receipt_long\" lost its icon font and renders as text",
+   "icon <span> \"settings\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "clipped_text",
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "dashboard__poppins__faked_bold",
+  "page": "dashboard",
+  "font": "Poppins",
+  "damage": "faked_bold",
+  "clean_twin": "dashboard__poppins",
+  "element": null,
+  "element_text": "",
+  "candidate": "dashboard__poppins__faked_bold.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "16 bold element(s) are faked by the browser: no bold face of Poppins is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "dashboard__cousine",
+  "page": "dashboard",
+  "font": "Cousine",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "dashboard__cousine.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "dashboard__cousine__cut_off_text",
+  "page": "dashboard",
+  "font": "Cousine",
+  "damage": "cut_off_text",
+  "clean_twin": "dashboard__cousine",
+  "element": "32",
+  "element_text": "#A-20931",
+  "candidate": "dashboard__cousine__cut_off_text.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "<td> \"#A-20931\" is cut off by its container (37px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "dashboard__cousine__wrapped_label",
+  "page": "dashboard",
+  "font": "Cousine",
+  "damage": "wrapped_label",
+  "clean_twin": "dashboard__cousine",
+  "element": "46",
+  "element_text": "On time",
+  "candidate": "dashboard__cousine__wrapped_label.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "<span> \"On time\" overflows its box by 9px",
+   "<span> \"On time\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps",
+   "text_spill"
+  ]
+ },
+ {
+  "id": "dashboard__cousine__icon_shown_as_text",
+  "page": "dashboard",
+  "font": "Cousine",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "dashboard__cousine",
+  "element": "2",
+  "element_text": "dashboard",
+  "candidate": "dashboard__cousine__icon_shown_as_text.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "icon <span> \"dashboard\" lost its icon font and renders as text",
+   "<a> \"Shipments\" is cut off by its container (36px hidden)",
+   "icon <span> \"local_shipping\" lost its icon font and renders as text",
+   "icon <span> \"group\" lost its icon font and renders as text",
+   "<a> \"Invoices\" is cut off by its container (10px hidden)",
+   "icon <span> \"receipt_long\" lost its icon font and renders as text",
+   "icon <span> \"settings\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "clipped_text",
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "dashboard__cousine__faked_bold",
+  "page": "dashboard",
+  "font": "Cousine",
+  "damage": "faked_bold",
+  "clean_twin": "dashboard__cousine",
+  "element": null,
+  "element_text": "",
+  "candidate": "dashboard__cousine__faked_bold.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "16 bold element(s) are faked by the browser: no bold face of Cousine is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "dashboard__playfair_display",
+  "page": "dashboard",
+  "font": "Playfair Display",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "dashboard__playfair_display.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "dashboard__playfair_display__cut_off_text",
+  "page": "dashboard",
+  "font": "Playfair Display",
+  "damage": "cut_off_text",
+  "clean_twin": "dashboard__playfair_display",
+  "element": "33",
+  "element_text": "Nasr City, Cairo",
+  "candidate": "dashboard__playfair_display__cut_off_text.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "<td> \"Nasr City, Cairo\" is cut off by its container (52px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "dashboard__playfair_display__wrapped_label",
+  "page": "dashboard",
+  "font": "Playfair Display",
+  "damage": "wrapped_label",
+  "clean_twin": "dashboard__playfair_display",
+  "element": "48",
+  "element_text": "Downtown, Mansoura",
+  "candidate": "dashboard__playfair_display__wrapped_label.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "<td> \"Downtown, Mansoura\" overflows its box by 11px",
+   "<td> \"Downtown, Mansoura\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps",
+   "text_spill"
+  ]
+ },
+ {
+  "id": "dashboard__playfair_display__icon_shown_as_text",
+  "page": "dashboard",
+  "font": "Playfair Display",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "dashboard__playfair_display",
+  "element": "2",
+  "element_text": "dashboard",
+  "candidate": "dashboard__playfair_display__icon_shown_as_text.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "icon <span> \"dashboard\" lost its icon font and renders as text",
+   "<a> \"Shipments\" is cut off by its container (28px hidden)",
+   "icon <span> \"local_shipping\" lost its icon font and renders as text",
+   "icon <span> \"group\" lost its icon font and renders as text",
+   "icon <span> \"receipt_long\" lost its icon font and renders as text",
+   "icon <span> \"settings\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "clipped_text",
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "dashboard__playfair_display__faked_bold",
+  "page": "dashboard",
+  "font": "Playfair Display",
+  "damage": "faked_bold",
+  "clean_twin": "dashboard__playfair_display",
+  "element": null,
+  "element_text": "",
+  "candidate": "dashboard__playfair_display__faked_bold.png",
+  "original": "dashboard__original.png",
+  "purpose": "an internal operations dashboard for a delivery company.",
+  "checks": [
+   "16 bold element(s) are faked by the browser: no bold face of Playfair Display is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "landing__iosevka_charon",
+  "page": "landing",
+  "font": "Iosevka Charon",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "landing__iosevka_charon.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "landing__iosevka_charon__cut_off_text",
+  "page": "landing",
+  "font": "Iosevka Charon",
+  "damage": "cut_off_text",
+  "clean_twin": "landing__iosevka_charon",
+  "element": "1",
+  "element_text": "Product",
+  "candidate": "landing__iosevka_charon__cut_off_text.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "<a> \"Product\" is cut off by its container (25px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "landing__iosevka_charon__wrapped_label",
+  "page": "landing",
+  "font": "Iosevka Charon",
+  "damage": "wrapped_label",
+  "clean_twin": "landing__iosevka_charon",
+  "element": "8",
+  "element_text": "Book a demo",
+  "candidate": "landing__iosevka_charon__wrapped_label.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "<a> \"Book a demo\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "landing__iosevka_charon__icon_shown_as_text",
+  "page": "landing",
+  "font": "Iosevka Charon",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "landing__iosevka_charon",
+  "element": "9",
+  "element_text": "query_stats",
+  "candidate": "landing__iosevka_charon__icon_shown_as_text.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "icon <span> \"query_stats\" lost its icon font and renders as text",
+   "icon <span> \"science\" lost its icon font and renders as text",
+   "icon <span> \"lock\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "landing__iosevka_charon__mixed_fonts",
+  "page": "landing",
+  "font": "Iosevka Charon",
+  "damage": "mixed_fonts",
+  "clean_twin": "landing__iosevka_charon",
+  "element": "6",
+  "element_text": "Northwind turns raw product events into dashboards, funnels ",
+  "candidate": "landing__iosevka_charon__mixed_fonts.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "Iosevka Charon doesn't cover all the text: 26 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Nrthwind turns rw prduct vnts int dshbrd\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "landing__iosevka_charon__faked_bold",
+  "page": "landing",
+  "font": "Iosevka Charon",
+  "damage": "faked_bold",
+  "clean_twin": "landing__iosevka_charon",
+  "element": null,
+  "element_text": "",
+  "candidate": "landing__iosevka_charon__faked_bold.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "7 bold element(s) are faked by the browser: no bold face of Iosevka Charon is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "landing__ubuntu_mono",
+  "page": "landing",
+  "font": "Ubuntu Mono",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "landing__ubuntu_mono.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "landing__ubuntu_mono__cut_off_text",
+  "page": "landing",
+  "font": "Ubuntu Mono",
+  "damage": "cut_off_text",
+  "clean_twin": "landing__ubuntu_mono",
+  "element": "2",
+  "element_text": "Pricing",
+  "candidate": "landing__ubuntu_mono__cut_off_text.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "<a> \"Pricing\" is cut off by its container (28px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "landing__ubuntu_mono__wrapped_label",
+  "page": "landing",
+  "font": "Ubuntu Mono",
+  "damage": "wrapped_label",
+  "clean_twin": "landing__ubuntu_mono",
+  "element": "4",
+  "element_text": "Sign in",
+  "candidate": "landing__ubuntu_mono__wrapped_label.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "<a> \"Sign in\" overflows its box by 8px",
+   "<a> \"Sign in\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps",
+   "text_spill"
+  ]
+ },
+ {
+  "id": "landing__ubuntu_mono__icon_shown_as_text",
+  "page": "landing",
+  "font": "Ubuntu Mono",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "landing__ubuntu_mono",
+  "element": "9",
+  "element_text": "query_stats",
+  "candidate": "landing__ubuntu_mono__icon_shown_as_text.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "icon <span> \"query_stats\" lost its icon font and renders as text",
+   "icon <span> \"science\" lost its icon font and renders as text",
+   "icon <span> \"lock\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "landing__ubuntu_mono__mixed_fonts",
+  "page": "landing",
+  "font": "Ubuntu Mono",
+  "damage": "mixed_fonts",
+  "clean_twin": "landing__ubuntu_mono",
+  "element": "11",
+  "element_text": "Define steps once and compare every segment side by side.",
+  "candidate": "landing__ubuntu_mono__mixed_fonts.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "Ubuntu Mono doesn't cover all the text: 15 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Dfin stps nc nd cmpr vry sgmnt sid by si\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "landing__ubuntu_mono__faked_bold",
+  "page": "landing",
+  "font": "Ubuntu Mono",
+  "damage": "faked_bold",
+  "clean_twin": "landing__ubuntu_mono",
+  "element": null,
+  "element_text": "",
+  "candidate": "landing__ubuntu_mono__faked_bold.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "7 bold element(s) are faked by the browser: no bold face of Ubuntu Mono is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "landing__inria_sans",
+  "page": "landing",
+  "font": "Inria Sans",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "landing__inria_sans.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "landing__inria_sans__cut_off_text",
+  "page": "landing",
+  "font": "Inria Sans",
+  "damage": "cut_off_text",
+  "clean_twin": "landing__inria_sans",
+  "element": "4",
+  "element_text": "Sign in",
+  "candidate": "landing__inria_sans__cut_off_text.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "<a> \"Sign in\" is cut off by its container (20px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "landing__inria_sans__wrapped_label",
+  "page": "landing",
+  "font": "Inria Sans",
+  "damage": "wrapped_label",
+  "clean_twin": "landing__inria_sans",
+  "element": "7",
+  "element_text": "Start free trial",
+  "candidate": "landing__inria_sans__wrapped_label.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "<a> \"Start free trial\" wraps onto 3 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "landing__inria_sans__icon_shown_as_text",
+  "page": "landing",
+  "font": "Inria Sans",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "landing__inria_sans",
+  "element": "9",
+  "element_text": "query_stats",
+  "candidate": "landing__inria_sans__icon_shown_as_text.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "icon <span> \"query_stats\" lost its icon font and renders as text",
+   "icon <span> \"science\" lost its icon font and renders as text",
+   "icon <span> \"lock\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "landing__inria_sans__mixed_fonts",
+  "page": "landing",
+  "font": "Inria Sans",
+  "damage": "mixed_fonts",
+  "clean_twin": "landing__inria_sans",
+  "element": "14",
+  "element_text": "Power analysis, guardrails and sample-ratio checks by defaul",
+  "candidate": "landing__inria_sans__mixed_fonts.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "Inria Sans doesn't cover all the text: 14 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Pwr nlysis, gurdrils nd smpl-rti chcks b\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "landing__inria_sans__faked_bold",
+  "page": "landing",
+  "font": "Inria Sans",
+  "damage": "faked_bold",
+  "clean_twin": "landing__inria_sans",
+  "element": null,
+  "element_text": "",
+  "candidate": "landing__inria_sans__faked_bold.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "7 bold element(s) are faked by the browser: no bold face of Inria Sans is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "landing__ibm_plex_mono",
+  "page": "landing",
+  "font": "IBM Plex Mono",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "landing__ibm_plex_mono.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "landing__ibm_plex_mono__cut_off_text",
+  "page": "landing",
+  "font": "IBM Plex Mono",
+  "damage": "cut_off_text",
+  "clean_twin": "landing__ibm_plex_mono",
+  "element": "7",
+  "element_text": "Start free trial",
+  "candidate": "landing__ibm_plex_mono__cut_off_text.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "<a> \"Start free trial\" is cut off by its container (101px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "landing__ibm_plex_mono__wrapped_label",
+  "page": "landing",
+  "font": "IBM Plex Mono",
+  "damage": "wrapped_label",
+  "clean_twin": "landing__ibm_plex_mono",
+  "element": "8",
+  "element_text": "Book a demo",
+  "candidate": "landing__ibm_plex_mono__wrapped_label.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "<a> \"Book a demo\" wraps onto 3 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "landing__ibm_plex_mono__icon_shown_as_text",
+  "page": "landing",
+  "font": "IBM Plex Mono",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "landing__ibm_plex_mono",
+  "element": "9",
+  "element_text": "query_stats",
+  "candidate": "landing__ibm_plex_mono__icon_shown_as_text.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "icon <span> \"query_stats\" lost its icon font and renders as text",
+   "icon <span> \"science\" lost its icon font and renders as text",
+   "icon <span> \"lock\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "landing__ibm_plex_mono__mixed_fonts",
+  "page": "landing",
+  "font": "IBM Plex Mono",
+  "damage": "mixed_fonts",
+  "clean_twin": "landing__ibm_plex_mono",
+  "element": "17",
+  "element_text": "Runs in your own warehouse, with no copies on our servers.",
+  "candidate": "landing__ibm_plex_mono__mixed_fonts.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "IBM Plex Mono doesn't cover all the text: 13 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Runs in yur wn wrhus, with n cpis n ur s\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "landing__ibm_plex_mono__faked_bold",
+  "page": "landing",
+  "font": "IBM Plex Mono",
+  "damage": "faked_bold",
+  "clean_twin": "landing__ibm_plex_mono",
+  "element": null,
+  "element_text": "",
+  "candidate": "landing__ibm_plex_mono__faked_bold.png",
+  "original": "landing__original.png",
+  "purpose": "the landing page of Northwind, a B2B product-analytics startup.",
+  "checks": [
+   "7 bold element(s) are faked by the browser: no bold face of IBM Plex Mono is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "palette__bitter",
+  "page": "palette",
+  "font": "Bitter",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "palette__bitter.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "palette__bitter__mixed_fonts",
+  "page": "palette",
+  "font": "Bitter",
+  "damage": "mixed_fonts",
+  "clean_twin": "palette__bitter",
+  "element": "1",
+  "element_text": "A deep, rich red inspired by velvety rose petals.",
+  "candidate": "palette__bitter__mixed_fonts.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [
+   "Bitter doesn't cover all the text: 10 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"A dp, rich rd inspird by vlvty rs ptls.\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "palette__bitter__faked_bold",
+  "page": "palette",
+  "font": "Bitter",
+  "damage": "faked_bold",
+  "clean_twin": "palette__bitter",
+  "element": null,
+  "element_text": "",
+  "candidate": "palette__bitter__faked_bold.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [
+   "4 bold element(s) are faked by the browser: no bold face of Bitter is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "palette__oswald",
+  "page": "palette",
+  "font": "Oswald",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "palette__oswald.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "palette__oswald__mixed_fonts",
+  "page": "palette",
+  "font": "Oswald",
+  "damage": "mixed_fonts",
+  "clean_twin": "palette__oswald",
+  "element": "3",
+  "element_text": "A soft, dreamy lilac that adds a delicate, romantic touch.",
+  "candidate": "palette__oswald__mixed_fonts.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [
+   "Oswald doesn't cover all the text: 13 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"A sft, drmy lilc tht dds  dlict, rmntic \""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "palette__oswald__faked_bold",
+  "page": "palette",
+  "font": "Oswald",
+  "damage": "faked_bold",
+  "clean_twin": "palette__oswald",
+  "element": null,
+  "element_text": "",
+  "candidate": "palette__oswald__faked_bold.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [
+   "4 bold element(s) are faked by the browser: no bold face of Oswald is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "palette__raleway",
+  "page": "palette",
+  "font": "Raleway",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "palette__raleway.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "palette__raleway__mixed_fonts",
+  "page": "palette",
+  "font": "Raleway",
+  "damage": "mixed_fonts",
+  "clean_twin": "palette__raleway",
+  "element": "5",
+  "element_text": "A warm, vintage blush reminiscent of dried florals.",
+  "candidate": "palette__raleway__mixed_fonts.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [
+   "Raleway doesn't cover all the text: 9 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"A wrm, vintg blush rminiscnt f drid flrl\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "palette__raleway__faked_bold",
+  "page": "palette",
+  "font": "Raleway",
+  "damage": "faked_bold",
+  "clean_twin": "palette__raleway",
+  "element": null,
+  "element_text": "",
+  "candidate": "palette__raleway__faked_bold.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [
+   "4 bold element(s) are faked by the browser: no bold face of Raleway is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "palette__source_code_pro",
+  "page": "palette",
+  "font": "Source Code Pro",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "palette__source_code_pro.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "palette__source_code_pro__mixed_fonts",
+  "page": "palette",
+  "font": "Source Code Pro",
+  "damage": "mixed_fonts",
+  "clean_twin": "palette__source_code_pro",
+  "element": "7",
+  "element_text": "A deep, earthy green with a hint of vintage charm.",
+  "candidate": "palette__source_code_pro__mixed_fonts.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [
+   "Source Code Pro doesn't cover all the text: 11 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"A dp, rthy grn with  hint f vintg chrm.\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "palette__source_code_pro__faked_bold",
+  "page": "palette",
+  "font": "Source Code Pro",
+  "damage": "faked_bold",
+  "clean_twin": "palette__source_code_pro",
+  "element": null,
+  "element_text": "",
+  "candidate": "palette__source_code_pro__faked_bold.png",
+  "original": "palette__original.png",
+  "purpose": "a showcase of four brand colors, each with a name and a short description.",
+  "checks": [
+   "4 bold element(s) are faked by the browser: no bold face of Source Code Pro is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "pricing__ibm_plex_mono",
+  "page": "pricing",
+  "font": "IBM Plex Mono",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "pricing__ibm_plex_mono.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "pricing__ibm_plex_mono__cut_off_text",
+  "page": "pricing",
+  "font": "IBM Plex Mono",
+  "damage": "cut_off_text",
+  "clean_twin": "pricing__ibm_plex_mono",
+  "element": "37",
+  "element_text": "Contact sales",
+  "candidate": "pricing__ibm_plex_mono__cut_off_text.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "<button> \"Contact sales\" is cut off by its container (68px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "pricing__ibm_plex_mono__wrapped_label",
+  "page": "pricing",
+  "font": "IBM Plex Mono",
+  "damage": "wrapped_label",
+  "clean_twin": "pricing__ibm_plex_mono",
+  "element": "37",
+  "element_text": "Contact sales",
+  "candidate": "pricing__ibm_plex_mono__wrapped_label.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "<button> \"Contact sales\" overflows its box by 19px",
+   "<button> \"Contact sales\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps",
+   "text_spill"
+  ]
+ },
+ {
+  "id": "pricing__ibm_plex_mono__icon_shown_as_text",
+  "page": "pricing",
+  "font": "IBM Plex Mono",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "pricing__ibm_plex_mono",
+  "element": "7",
+  "element_text": "check",
+  "candidate": "pricing__ibm_plex_mono__icon_shown_as_text.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "pricing__ibm_plex_mono__mixed_fonts",
+  "page": "pricing",
+  "font": "IBM Plex Mono",
+  "damage": "mixed_fonts",
+  "clean_twin": "pricing__ibm_plex_mono",
+  "element": "1",
+  "element_text": "Every plan includes unlimited dashboards. Pay only for the e",
+  "candidate": "pricing__ibm_plex_mono__mixed_fonts.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "IBM Plex Mono doesn't cover all the text: 15 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Evry pln includs unlimitd dshbrds. Py nl\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "pricing__ibm_plex_mono__faked_bold",
+  "page": "pricing",
+  "font": "IBM Plex Mono",
+  "damage": "faked_bold",
+  "clean_twin": "pricing__ibm_plex_mono",
+  "element": null,
+  "element_text": "",
+  "candidate": "pricing__ibm_plex_mono__faked_bold.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "11 bold element(s) are faked by the browser: no bold face of IBM Plex Mono is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "pricing__koh_santepheap",
+  "page": "pricing",
+  "font": "Koh Santepheap",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "pricing__koh_santepheap.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "pricing__koh_santepheap__cut_off_text",
+  "page": "pricing",
+  "font": "Koh Santepheap",
+  "damage": "cut_off_text",
+  "clean_twin": "pricing__koh_santepheap",
+  "element": "12",
+  "element_text": "Get started",
+  "candidate": "pricing__koh_santepheap__cut_off_text.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "<button> \"Get started\" is cut off by its container (45px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "pricing__koh_santepheap__wrapped_label",
+  "page": "pricing",
+  "font": "Koh Santepheap",
+  "damage": "wrapped_label",
+  "clean_twin": "pricing__koh_santepheap",
+  "element": "12",
+  "element_text": "Get started",
+  "candidate": "pricing__koh_santepheap__wrapped_label.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "<button> \"Get started\" overflows its box by 19px",
+   "<button> \"Get started\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps",
+   "text_spill"
+  ]
+ },
+ {
+  "id": "pricing__koh_santepheap__icon_shown_as_text",
+  "page": "pricing",
+  "font": "Koh Santepheap",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "pricing__koh_santepheap",
+  "element": "7",
+  "element_text": "check",
+  "candidate": "pricing__koh_santepheap__icon_shown_as_text.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "pricing__koh_santepheap__mixed_fonts",
+  "page": "pricing",
+  "font": "Koh Santepheap",
+  "damage": "mixed_fonts",
+  "clean_twin": "pricing__koh_santepheap",
+  "element": "5",
+  "element_text": "For side projects and early prototypes.",
+  "candidate": "pricing__koh_santepheap__mixed_fonts.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "Koh Santepheap doesn't cover all the text: 10 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Fr sid prjcts nd rly prttyps.\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "pricing__koh_santepheap__faked_bold",
+  "page": "pricing",
+  "font": "Koh Santepheap",
+  "damage": "faked_bold",
+  "clean_twin": "pricing__koh_santepheap",
+  "element": null,
+  "element_text": "",
+  "candidate": "pricing__koh_santepheap__faked_bold.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "11 bold element(s) are faked by the browser: no bold face of Koh Santepheap is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "pricing__comme",
+  "page": "pricing",
+  "font": "Comme",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "pricing__comme.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "pricing__comme__cut_off_text",
+  "page": "pricing",
+  "font": "Comme",
+  "damage": "cut_off_text",
+  "clean_twin": "pricing__comme",
+  "element": "26",
+  "element_text": "Start 14-day trial",
+  "candidate": "pricing__comme__cut_off_text.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "<button> \"Start 14-day trial\" is cut off by its container (67px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "pricing__comme__wrapped_label",
+  "page": "pricing",
+  "font": "Comme",
+  "damage": "wrapped_label",
+  "clean_twin": "pricing__comme",
+  "element": "26",
+  "element_text": "Start 14-day trial",
+  "candidate": "pricing__comme__wrapped_label.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "<button> \"Start 14-day trial\" wraps onto 3 lines"
+  ],
+  "check_kinds": [
+   "control_wraps"
+  ]
+ },
+ {
+  "id": "pricing__comme__icon_shown_as_text",
+  "page": "pricing",
+  "font": "Comme",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "pricing__comme",
+  "element": "7",
+  "element_text": "check",
+  "candidate": "pricing__comme__icon_shown_as_text.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "pricing__comme__mixed_fonts",
+  "page": "pricing",
+  "font": "Comme",
+  "damage": "mixed_fonts",
+  "clean_twin": "pricing__comme",
+  "element": "17",
+  "element_text": "For product teams running weekly experiments.",
+  "candidate": "pricing__comme__mixed_fonts.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "Comme doesn't cover all the text: 9 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Fr prduct tms running wkly xprimnts.\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "pricing__comme__faked_bold",
+  "page": "pricing",
+  "font": "Comme",
+  "damage": "faked_bold",
+  "clean_twin": "pricing__comme",
+  "element": null,
+  "element_text": "",
+  "candidate": "pricing__comme__faked_bold.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "11 bold element(s) are faked by the browser: no bold face of Comme is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ },
+ {
+  "id": "pricing__bitter",
+  "page": "pricing",
+  "font": "Bitter",
+  "damage": null,
+  "clean_twin": null,
+  "element": null,
+  "element_text": "",
+  "candidate": "pricing__bitter.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [],
+  "check_kinds": []
+ },
+ {
+  "id": "pricing__bitter__cut_off_text",
+  "page": "pricing",
+  "font": "Bitter",
+  "damage": "cut_off_text",
+  "clean_twin": "pricing__bitter",
+  "element": "37",
+  "element_text": "Contact sales",
+  "candidate": "pricing__bitter__cut_off_text.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "<button> \"Contact sales\" is cut off by its container (44px hidden)"
+  ],
+  "check_kinds": [
+   "clipped_text"
+  ]
+ },
+ {
+  "id": "pricing__bitter__wrapped_label",
+  "page": "pricing",
+  "font": "Bitter",
+  "damage": "wrapped_label",
+  "clean_twin": "pricing__bitter",
+  "element": "37",
+  "element_text": "Contact sales",
+  "candidate": "pricing__bitter__wrapped_label.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "<button> \"Contact sales\" overflows its box by 11px",
+   "<button> \"Contact sales\" wraps onto 2 lines"
+  ],
+  "check_kinds": [
+   "control_wraps",
+   "text_spill"
+  ]
+ },
+ {
+  "id": "pricing__bitter__icon_shown_as_text",
+  "page": "pricing",
+  "font": "Bitter",
+  "damage": "icon_shown_as_text",
+  "clean_twin": "pricing__bitter",
+  "element": "7",
+  "element_text": "check",
+  "candidate": "pricing__bitter__icon_shown_as_text.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text",
+   "icon <span> \"check\" lost its icon font and renders as text"
+  ],
+  "check_kinds": [
+   "icon_font_overridden"
+  ]
+ },
+ {
+  "id": "pricing__bitter__mixed_fonts",
+  "page": "pricing",
+  "font": "Bitter",
+  "damage": "mixed_fonts",
+  "clean_twin": "pricing__bitter",
+  "element": "30",
+  "element_text": "For companies with compliance needs.",
+  "candidate": "pricing__bitter__mixed_fonts.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "Bitter doesn't cover all the text: 9 glyphs in 1 element(s) were drawn by Times New Roman, e.g. \"Fr cmpnis with cmplinc nds.\""
+  ],
+  "check_kinds": [
+   "glyph_fallback"
+  ]
+ },
+ {
+  "id": "pricing__bitter__faked_bold",
+  "page": "pricing",
+  "font": "Bitter",
+  "damage": "faked_bold",
+  "clean_twin": "pricing__bitter",
+  "element": null,
+  "element_text": "",
+  "candidate": "pricing__bitter__faked_bold.png",
+  "original": "pricing__original.png",
+  "purpose": "the pricing page of a B2B analytics product, with three plans.",
+  "checks": [
+   "11 bold element(s) are faked by the browser: no bold face of Bitter is loaded"
+  ],
+  "check_kinds": [
+   "synthetic_bold"
+  ]
+ }
+]
