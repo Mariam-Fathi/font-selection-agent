@@ -1,9 +1,9 @@
 """Root Agent - Font Selection Agent MVP"""
 
+import os
 from dotenv import load_dotenv
 from google.adk import Runner
 from google.adk.sessions import InMemorySessionService
-
 from agents.font_agent import font_selection_agent
 
 # Load environment variables

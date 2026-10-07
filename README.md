@@ -1,122 +1,131 @@
 # Font Selection Agent
 
-[![CI](https://github.com/Mariam-Fathi/font-selection-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Mariam-Fathi/font-selection-agent/actions/workflows/ci.yml)
+An AI-powered assistant that helps you find the perfect font for your design projects by automatically searching fonts, taking screenshots, and providing visual comparisons.
 
-An AI agent (Google ADK, Gemini) that helps developers choose a font by **trying
-candidates on their real page**, then checking what actually rendered and whether the
-layout broke.
+## What It Does
 
-It began as my capstone for the **Google × Kaggle 5-Day AI Agents Intensive**. Version 1
-took screenshots and assumed they were right. When I measured them, many weren't. The
-project is now a study of one question: **can an AI agent be trusted to make a design
-decision?** Each part of the agent is checked against a truth that doesn't come from the
-agent itself.
+The Font Selection Agent automates the font selection process:
+1. **Asks for your UI file path** (HTML, React, Vue, Angular, etc.)
+2. **Asks for URL** (if needed for non-HTML files with dev server)
+3. **Shows font category options** (Handwriting, Serif, Sans-serif, Display, Monospace)
+4. **Searches for matching fonts** from a curated list of 40 Google Fonts
+5. **Takes screenshots automatically** of your design with different fonts
+6. **Provides recommendations** with visual comparisons
 
-**One-page summary for reviewers: [docs/summary.md](docs/summary.md)** ·
-**Plan: [docs/roadmap.md](docs/roadmap.md)**
+## Features
 
-## Findings so far
+- **User-Friendly Interface**: Simple step-by-step workflow
+- **Works with Any UI File**: HTML, React, Vue, Angular, and more
+- **40 Curated Fonts**: Handpicked Google Fonts across 5 categories
+- **Automatic Screenshots**: See fonts in your actual design context
+- **Visual Comparison**: Side-by-side screenshots for easy decision-making
+- **Safe Operations**: Automatically restores your original file
 
-| Question | Answer | Evidence |
-|---|---|---|
-| Did v1's screenshots show the font they claimed? | **No, in 81.6% of renders**: faked bold despite a real bold face, or icons turned into words. v1 reported success on all of them. v2: **0%** (95% CI 0–1.0%). | [Case study 1](docs/case-study-rendering.md#finding-1-v1s-screenshots-were-wrong-in-4-of-5-renders-and-v2-caused-none-of-those-errors) |
-| Can the checks be trusted? | Planted flaws in 6 types and 4 kinds of control: all 470 development trials pass. On **held-out seeds run once**, 280/280 flaws found and 188/190 controls clean. Glyph checks agree with the catalogue's script data on **234/234** renders. | [Case study 1](docs/case-study-rendering.md#step-1-can-the-checks-be-trusted-plant-flaws-and-see-if-theyre-found) |
-| How often does a real font break a real layout? | **4.2%** of renders cut off text, **12%** for handwriting fonts on mobile. Tall fonts overflow fixed-height boxes; wide fonts overflow fixed-width labels. | [Case study 1](docs/case-study-rendering.md#finding-3-real-fonts-break-real-layouts-through-fixed-size-boxes) |
-| Can a model judge whether a font *fits*? | Next: Phase 2 (critic) and Phase 3 (pre-registered human study). | [Roadmap](docs/roadmap.md) |
+## Quick Start
 
-The five test pages are written for the benchmark. The fonts and the browser are real:
-every number comes from Chrome rendering real Google Fonts.
+### Prerequisites
 
-## How it works
+- Python 3.9+
+- Google ADK
+- Google API Key (get from [Google AI Studio](https://aistudio.google.com/apikey))
+- Playwright (for screenshots)
 
-```mermaid
-flowchart LR
-    user["Developer<br/>'a serif for my landing page'"]
-    agent["ADK agent<br/>Gemini"]
-    search["search_google_fonts<br/>1,950-family catalogue"]
-    render["take_font_screenshots"]
-    chrome["Headless Chromium<br/>font applied in-page only"]
-    verify["Checks<br/>glyph attribution · faked bold/italic<br/>clipping · wrapping · overflow"]
+### Installation
 
-    user --> agent
-    agent --> search
-    agent --> render
-    render --> chrome
-    chrome --> verify
-    verify -- "verdict + issues per font" --> agent
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Mariam-Fathi/font-selection-agent.git
+   cd font-selection-agent
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   python -m playwright install chromium
+   ```
+
+3. **Set up API key**
+   Create a `.env` file in the project root:
+   ```
+   GOOGLE_API_KEY=your_google_api_key_here
+   ```
+
+### Usage
+
+1. **Run the agent**
+   ```bash
+   python agent.py
+   ```
+
+2. **Follow the prompts**
+   - Provide your UI file path (e.g., `test-design.html` or `src/components/Hero.tsx`)
+   - If non-HTML file: provide your dev server URL (e.g., `http://localhost:3000`)
+   - Choose a font category (1-5)
+   - Wait for screenshots to be generated
+
+3. **View results**
+   - Screenshots are saved in `previews/screenshots/`
+   - Open the images to compare fonts
+
+## 📝 Supported File Types
+
+- **HTML**: `.html`, `.htm` - Served locally, no dev server needed
+- **React**: `.jsx`, `.tsx` - Requires running dev server (provide URL)
+- **Vue**: `.vue` - Requires running dev server (provide URL)
+- **Angular**: `.ts`, `.html` - Requires running dev server (provide URL)
+- **Any UI framework**: Works with any file that contains font declarations
+
+## Available Font Categories
+
+- **Handwriting** (14 fonts): Casual, script, handwritten styles
+- **Serif** (8 fonts): Classic, traditional fonts with serifs
+- **Sans-serif** (8 fonts): Modern, clean fonts without serifs
+- **Display** (6 fonts): Bold, attention-grabbing fonts
+- **Monospace** (4 fonts): Fixed-width fonts, great for code
+
+## Example Usage
+
+```
+Agent: What is the path to your UI file? (e.g., 'test-design.html' or 'src/components/Hero.tsx')
+
+You: src/components/Hero.tsx
+
+Agent: What is the URL of your running application? (e.g., 'http://localhost:3000')
+
+You: http://localhost:3000
+
+Agent: Great! Now choose a font category:
+       1. Handwriting (14 fonts) - Casual, script, handwritten styles
+       2. Serif (8 fonts) - Classic, traditional fonts with serifs
+       3. Sans-serif (8 fonts) - Modern, clean fonts without serifs
+       4. Display (6 fonts) - Bold, attention-grabbing fonts
+       5. Monospace (4 fonts) - Fixed-width fonts, great for code
+
+You: 1
+
+[Agent searches fonts, takes screenshots, and shows results]
 ```
 
-1. **Search** the full Google Fonts catalogue (a dated snapshot of its public metadata).
-   Filter by category, by script support (`subset="arabic"`) and by whether the family
-   has a real bold face.
-2. **Render** the page once with its own fonts (the baseline) and once per candidate.
-   The font is applied inside the browser. **The user's files are never modified.**
-   Only the weights and styles the page uses are requested.
-3. **Verify** through Chrome DevTools (`CSS.getPlatformFontsForNode`) which font drew
-   each glyph, and check whether bold or italic had to be faked.
-4. **Check the layout** against the baseline. Look for:
-   - text cut off by its container;
-   - buttons and labels that wrap;
-   - headings that wrap;
-   - sideways scrolling;
-   - icon fonts that got replaced;
-   - a large change in page height.
-5. **Report** a verdict per font (`clean`, `warnings`, `broken`), the screenshots and the
-   problems in plain words.
+## How It Works
 
-| Part | What's in it |
-|---|---|
-| [`fontagent/`](fontagent) | `catalog.py` (catalogue and lookups), `render.py` (renderer and verification), `checks.py` (font and layout checks), `page.js` (in-page measurement) |
-| [`agents/`](agents), [`tools/`](tools) | The ADK agent and its two tools |
-| [`benchmark/`](benchmark) | 5 test pages, the planted-flaw benchmark, the real-font audit, analysis |
-| [`docs/`](docs) | [Summary](docs/summary.md), [roadmap](docs/roadmap.md), [case study 1](docs/case-study-rendering.md) |
-| CI | GitHub Actions: lint, plus offline and network tests in Chromium |
+1. **Font Search**: Searches curated list of 40 Google Fonts by category
+2. **File Detection**: Detects file type (HTML, React, Vue, etc.)
+3. **File Modification**: Temporarily modifies your UI file to use different fonts
+   - For HTML: Injects Google Fonts CSS and updates font-family declarations
+   - For React/Vue/Angular: Updates fontFamily in style objects and injects CSS via browser
+4. **Screenshot Capture**: 
+   - HTML files: Uses local HTTP server (port 8000)
+   - Other files: Uses your provided dev server URL (must be running)
+   - Injects Google Fonts CSS directly into the page for reliable font loading
+5. **File Restoration**: Automatically restores your original file after screenshots
+6. **Results**: Saves screenshots in `previews/screenshots/` for visual comparison
 
-## Run it
+## Requirements
 
-You need Python 3.10+ and a [Gemini API key](https://aistudio.google.com/apikey).
+- `google-adk>=0.1.0`
+- `google-genai>=0.2.0`
+- `requests>=2.31.0`
+- `python-dotenv>=1.0.0`
+- `playwright>=1.40.0`
 
-```bash
-pip install -e ".[dev]"
-```
-```bash
-python -m playwright install chromium
-```
 
-Put the key in a `.env` file in the project root:
-
-```
-GOOGLE_API_KEY=your_key_here
-```
-
-Then start the agent and give it `benchmark/fixtures/landing.html` as the file:
-
-```bash
-python agent.py
-```
-
-For React, Vue or other frameworks, start your dev server and give the agent its URL.
-
-## Reproduce the benchmark
-
-```bash
-python -m benchmark.planted --seeds 10
-```
-```bash
-python -m benchmark.render_audit --per-category 16 --seed 7
-```
-```bash
-python -m benchmark.analyze
-```
-
-Results are written to `benchmark/results/`. The report
-`benchmark/results/phase1_report.md` is generated, never edited by hand.
-
-## Tests
-
-```bash
-pytest
-```
-
-Tests marked `browser` need Chromium. Tests marked `network` also need
-`fonts.googleapis.com`. Run `pytest -m "not network"` to work offline.
