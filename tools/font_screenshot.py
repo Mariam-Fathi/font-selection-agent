@@ -1,558 +1,72 @@
-"""General font screenshot tool - works with any HTML file"""
+"""Agent tool: render the user's page with candidate fonts and report what really happened."""
 
-import os
-import shutil
-import subprocess
-import time
-import sys
-import http.server
-import socketserver
-import threading
-from typing import Dict, Any, List, Optional
+from __future__ import annotations
+
+from datetime import datetime
 from pathlib import Path
-from google.adk.tools import ToolContext
+from typing import Any
+
+from fontagent.catalog import load_catalog
+from fontagent.render import VIEWPORTS, Renderer, page_url
+
+OUTPUT_DIR = Path("previews")
 
 
-def take_font_screenshots(
-    font_names: List[str],
-    file_path: str,
-    url: Optional[str] = None,
-    text: str = "Sample Text",
-    tool_context: Optional[ToolContext] = None,
-) -> Dict[str, Any]:
-    """
-    Take screenshots of a UI file with different fonts applied.
-    
-    Works with any UI file type: HTML, React (JSX/TSX), Vue, Angular, etc.
-    For HTML files: serves locally and takes screenshots.
-    For other files: modifies the file and takes screenshots from provided URL (dev server).
-    
+async def take_font_screenshots(
+    font_names: list[str],
+    file_path: str | None = None,
+    url: str | None = None,
+    scope: str = "all",
+    viewport: str = "desktop",
+) -> dict[str, Any]:
+    """Render a page with each font, verify it rendered, and check the layout.
+
+    The page is never modified on disk: the font is applied inside the browser only.
+    Each font's render is compared with the page's original fonts, and problems are
+    reported per font: the font didn't load, some text fell back to another font
+    (missing glyphs, e.g. Arabic), bold or italic was faked by the browser, buttons or
+    labels wrapped or got cut off, or the page started scrolling sideways.
+
     Args:
-        font_names: List of font names to test (e.g., ["Comforter Brush", "Dancing Script"])
-        file_path: Path to the UI file (HTML, JSX, TSX, Vue, etc.) or full path
-        url: Optional URL for running application (e.g., "http://localhost:3000"). 
-             Required for non-HTML files. If not provided for HTML, serves locally.
-        text: Text content to display (default: "Sample Text")
-        tool_context: Tool context (automatically provided by ADK)
-    
+        font_names: Exact Google Fonts family names, e.g. ["Inter", "Lora"]. Use names
+            returned by search_google_fonts.
+        file_path: Path to a local .html file. Use this or url.
+        url: URL of a running app (e.g. "http://localhost:3000") for React, Vue and other
+            frameworks.
+        scope: Which text gets the font: "all", "headings" or "body".
+        viewport: "desktop" (1280x800) or "mobile" (390x844).
+
     Returns:
-        Dictionary with screenshot information:
-        {
-            "status": "success",
-            "font_names": ["Comforter Brush", "Dancing Script"],
-            "screenshots": [
-                {
-                    "font": "Comforter Brush",
-                    "path": "previews/screenshots/comforter_brush.png"
-                }
-            ],
-            "screenshots_folder": "previews/screenshots"
-        }
-    
-    Example:
-        # HTML file (served locally):
-        take_font_screenshots(
-            font_names=["Comforter Brush", "Dancing Script"],
-            file_path="test-design.html"
-        )
-        
-        # React component (with dev server):
-        take_font_screenshots(
-            font_names=["Roboto", "Montserrat"],
-            file_path="src/components/Hero.tsx",
-            url="http://localhost:3000"
-        )
+        {"status": "success", "original_screenshot": "...",
+         "results": [{"font": "Inter", "verdict": "clean" | "warnings" | "broken",
+                      "glyph_coverage": 1.0, "screenshot": "...", "issues": [...]}],
+         "clean": ["Inter"], "broken": [...], "not_found": {...}}
     """
+    if viewport not in VIEWPORTS:
+        return {"status": "error", "message": f"viewport must be one of {sorted(VIEWPORTS)}"}
+    if scope not in {"all", "headings", "body"}:
+        return {"status": "error", "message": "scope must be 'all', 'headings' or 'body'"}
+    catalog = load_catalog()
+    known = [catalog.get(n).family for n in font_names if catalog.get(n)]
+    not_found = {n: catalog.suggest(n) for n in font_names if not catalog.get(n)}
+    out_dir = OUTPUT_DIR / datetime.now().strftime("%Y%m%d-%H%M%S")
     try:
-        # Resolve file path (can be relative or absolute)
-        file_path_obj = Path(file_path)
-        if not file_path_obj.is_absolute():
-            # If relative, assume it's in the project root
-            file_path_obj = Path.cwd() / file_path
-        
-        if not file_path_obj.exists():
-            return {
-                "status": "error",
-                "message": f"File not found at {file_path_obj}. Please check the file_path parameter.",
-                "font_names": font_names
-            }
-        
-        # Detect file type
-        file_ext = file_path_obj.suffix.lower()
-        is_html = file_ext in ['.html', '.htm']
-        
-        # For non-HTML files, URL is required
-        if not is_html and not url:
-            return {
-                "status": "error",
-                "message": f"For {file_ext} files, please provide a URL to your running application (e.g., 'http://localhost:3000'). Start your dev server first.",
-                "font_names": font_names,
-                "suggestion": "Start your dev server and provide the URL parameter"
-            }
-        
-        # Create screenshots directory
-        screenshots_dir = Path("previews") / "screenshots"
-        screenshots_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Read original file
-        with open(file_path_obj, "r", encoding="utf-8") as f:
-            original_content = f.read()
-        
-        screenshots = []
-        
-        # Determine screenshot URL
-        if is_html:
-            # For HTML files, serve locally
-            port = 8000
-            server_thread = _start_local_server(file_path_obj.parent, port)
-            time.sleep(1)  # Give server time to start
-            screenshot_url = f"http://localhost:{port}/{file_path_obj.name}"
-        else:
-            # For other files, use provided URL
-            screenshot_url = url.rstrip('/')
-        
-        # Process each font
-        for font_name in font_names:
-            try:
-                # Modify file with new font based on file type
-                if is_html:
-                    modified_content = _replace_font_in_html(original_content, font_name, text)
-                else:
-                    modified_content = _replace_font_in_component(original_content, font_name, text, file_ext)
-                
-                # Debug: Check if font was actually replaced
-                if not is_html and font_name not in modified_content:
-                    # If no fontFamily found, try to inject it into the main component
-                    # Look for return statement or main component
-                    import re
-                    # Try to find style={{ ... }} and add fontFamily
-                    style_pattern = r'(style=\{\{)([^}]+)(\}\})'
-                    if re.search(style_pattern, modified_content):
-                        # Add fontFamily to existing style
-                        modified_content = re.sub(
-                            style_pattern,
-                            f'\\1\\2, fontFamily: "{font_name}"\\3',
-                            modified_content,
-                            count=1
-                        )
-                    else:
-                        # Try to add style prop to main element (look for first <div or return statement)
-                        return_match = re.search(r'(return\s*\([^<]*<)([a-zA-Z]+)', modified_content)
-                        if return_match:
-                            # Add style prop after opening tag
-                            tag_start = return_match.end()
-                            modified_content = (
-                                modified_content[:tag_start] +
-                                f' style={{{{ fontFamily: "{font_name}" }}}}' +
-                                modified_content[tag_start:]
-                            )
-                
-                # Write modified version
-                with open(file_path_obj, "w", encoding="utf-8") as f:
-                    f.write(modified_content)
-                
-                # Wait for changes to take effect
-                if is_html:
-                    time.sleep(0.5)  # HTML served locally
-                else:
-                    time.sleep(6)  # Wait longer for dev server to recompile and fonts to load (React/Vite/etc)
-                
-                # Take screenshot
-                screenshot_path = screenshots_dir / f"{font_name.lower().replace(' ', '_')}.png"
-                
-                sys.stdout.write(f"Taking screenshot with {font_name}...\n")
-                sys.stdout.flush()
-                
-                screenshot_result = _take_screenshot(screenshot_url, str(screenshot_path), font_name)
-                
-                if screenshot_result.get("success"):
-                    if screenshot_path.exists() and screenshot_path.stat().st_size > 0:
-                        screenshots.append({
-                            "font": font_name,
-                            "path": str(screenshot_path),
-                            "url": f"file:///{screenshot_path.absolute()}"
-                        })
-                        sys.stdout.write(f"[OK] Screenshot saved: {screenshot_path.name}\n")
-                        sys.stdout.flush()
-                    else:
-                        screenshots.append({
-                            "font": font_name,
-                            "path": "error",
-                            "error": "Screenshot file was not created or is empty"
-                        })
-                        sys.stdout.write(f"[ERROR] Screenshot failed\n")
-                        sys.stdout.flush()
-                else:
-                    screenshots.append({
-                        "font": font_name,
-                        "path": "error",
-                        "error": screenshot_result.get("message", "Unknown error")
-                    })
-                    sys.stdout.write(f"[ERROR] Screenshot failed: {screenshot_result.get('message', 'Unknown error')}\n")
-                    sys.stdout.flush()
-                
-                # Restore original file
-                with open(file_path_obj, "w", encoding="utf-8") as f:
-                    f.write(original_content)
-                
-                time.sleep(0.3)
-                
-            except Exception as e:
-                # Restore original file on error
-                try:
-                    with open(file_path_obj, "w", encoding="utf-8") as f:
-                        f.write(original_content)
-                except:
-                    pass
-                
-                screenshots.append({
-                    "font": font_name,
-                    "path": "error",
-                    "error": str(e)
-                })
-        
-        # Count successful screenshots
-        successful_screenshots = [s for s in screenshots if s.get("path") and s.get("path") != "error" and Path(s.get("path")).exists()]
-        
-        # Build summary message
-        if successful_screenshots:
-            screenshot_list = "\n".join([f"  - {s['font']}: {Path(s['path']).name}" for s in successful_screenshots])
-            message = f"Successfully captured {len(successful_screenshots)}/{len(font_names)} screenshots:\n{screenshot_list}\n\nScreenshots saved to: {screenshots_dir}\nOpen these images to compare fonts!"
-        else:
-            message = f"WARNING: No screenshots were captured. Check the errors above. Screenshots folder: {screenshots_dir}"
-        
-        return {
-            "status": "success" if successful_screenshots else "partial",
-            "font_names": font_names,
-            "text": text,
-            "file_path": str(file_path_obj),
-            "screenshots": screenshots,
-            "screenshots_folder": str(screenshots_dir),
-            "successful_count": len(successful_screenshots),
-            "total_count": len(font_names),
-            "message": message
-        }
-        
-    except Exception as e:
-        # Try to restore original file
-        try:
-            if 'original_content' in locals() and 'file_path_obj' in locals():
-                with open(file_path_obj, "w", encoding="utf-8") as f:
-                    f.write(original_content)
-        except:
-            pass
-        
-        return {
-            "status": "error",
-            "message": f"Error taking screenshots: {str(e)}",
-            "font_names": font_names
-        }
-
-
-def _start_local_server(directory: Path, port: int) -> threading.Thread:
-    """Start a local HTTP server in a separate thread"""
-    class Handler(http.server.SimpleHTTPRequestHandler):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, directory=str(directory), **kwargs)
-    
-    def run_server():
-        with socketserver.TCPServer(("", port), Handler) as httpd:
-            httpd.serve_forever()
-    
-    thread = threading.Thread(target=run_server, daemon=True)
-    thread.start()
-    return thread
-
-
-def _replace_font_in_component(content: str, font_name: str, text: str, file_ext: str) -> str:
-    """Replace font in React/Vue/Angular components - matches multiple patterns"""
-    import re
-    
-    modified = content
-    
-    # Pattern 1: Match fontFamily with double quotes: fontFamily: "Font Name"
-    # Most common React pattern: style={{ fontFamily: "Roboto" }}
-    pattern1 = r'(fontFamily\s*:\s*["\'])([^"\']+)(["\'])'
-    replacement1 = f'\\1{font_name}\\3'
-    modified = re.sub(pattern1, replacement1, modified)
-    
-    # Pattern 2: Match fontFamily with single quotes
-    pattern2 = r"(fontFamily\s*:\s*['\"])([^'\"]+)(['\"])"
-    replacement2 = f'\\1{font_name}\\3'
-    modified = re.sub(pattern2, replacement2, modified)
-    
-    # Pattern 3: Match fontFamily with fallback fonts: fontFamily: "Font", sans-serif
-    pattern3 = r'(fontFamily\s*:\s*["\'])([^"\']+)(["\'],\s*(?:sans-serif|serif|cursive|monospace))'
-    replacement3 = f'\\1{font_name}\\3'
-    modified = re.sub(pattern3, replacement3, modified)
-    
-    # Pattern 4: Match font-family in CSS strings (less common in React)
-    pattern4 = r"(font-family\s*:\s*['\"])([^'\"]+)(['\"])"
-    replacement4 = f'\\1{font_name}\\3'
-    modified = re.sub(pattern4, replacement4, modified)
-    
-    # Pattern 5: Match in template literals or backticks
-    pattern5 = r'(fontFamily\s*:\s*`)([^`]+)(`)'
-    replacement5 = f'\\1{font_name}\\3'
-    modified = re.sub(pattern5, replacement5, modified)
-    
-    # Pattern 6: Match any fontFamily assignment (catch-all, most general)
-    # This should catch any remaining patterns
-    if font_name not in modified or content == modified:
-        # Try a more aggressive pattern - match any fontFamily: "anything"
-        pattern6 = r'(fontFamily\s*:\s*["\'])([^"\']+)(["\'])'
-        if re.search(pattern6, modified):
-            modified = re.sub(pattern6, f'\\1{font_name}\\3', modified)
-    
-    return modified
-
-
-def _replace_font_in_html(content: str, font_name: str, text: str) -> str:
-    """Replace font in HTML file - works with various font declaration patterns"""
-    import re
-    
-    # Add Google Fonts import for the font
-    font_family_encoded = font_name.replace(" ", "+")
-    font_import = f'<link href="https://fonts.googleapis.com/css2?family={font_family_encoded}:wght@400&display=swap" rel="stylesheet">'
-    
-    # Check if Google Fonts preconnect exists, add import after it
-    if 'fonts.googleapis.com' in content and font_import not in content:
-        # Insert font import after existing Google Fonts links
-        content = content.replace(
-            '</head>',
-            f'    {font_import}\n</head>'
-        )
-    elif 'fonts.googleapis.com' not in content:
-        # Add preconnect and font import if not present
-        preconnect = '''    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    ''' + font_import + '\n'
-        content = content.replace('</head>', preconnect + '</head>')
-    
-    # Pattern 1: Match font-family in .title class (most specific)
-    # Matches: font-family: 'Arial', sans-serif;
-    pattern1 = r'(\.title\s*\{[^}]*font-family:\s*)([^;]+)(;)'
-    replacement1 = f'\\1"{font_name}", cursive\\3'
-    modified = re.sub(pattern1, replacement1, content, flags=re.IGNORECASE | re.DOTALL)
-    
-    # Pattern 2: Match any font-family in CSS
-    pattern2 = r"(font-family:\s*)(['\"]?)([^;'\"]+)(['\"]?\s*,\s*(?:sans-serif|serif|cursive|monospace))"
-    replacement2 = f'\\1"{font_name}", cursive'
-    modified = re.sub(pattern2, replacement2, modified, flags=re.IGNORECASE)
-    
-    # Pattern 3: Update text content if it matches the default
-    if "Sample Text" in modified:
-        modified = modified.replace("Sample Text", text)
-    
-    return modified
-
-
-async def _take_screenshot_async(url: str, screenshot_path: str, font_name: str) -> Dict[str, Any]:
-    """Take screenshot using Playwright async API"""
-    try:
-        from playwright.async_api import async_playwright
-        
-        screenshot_path_obj = Path(screenshot_path)
-        screenshot_path_obj.parent.mkdir(parents=True, exist_ok=True)
-        
-        async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=True)
-            page = await browser.new_page()
-            
-            try:
-                # Navigate to the page
-                await page.goto(url, wait_until="networkidle", timeout=30000)
-                
-                # Inject Google Fonts CSS directly into the page
-                font_family_encoded = font_name.replace(" ", "+")
-                font_css_url = f"https://fonts.googleapis.com/css2?family={font_family_encoded}:wght@400&display=swap"
-                
-                # Add Google Fonts link to head
-                await page.evaluate(f"""
-                    const link = document.createElement('link');
-                    link.rel = 'stylesheet';
-                    link.href = '{font_css_url}';
-                    document.head.appendChild(link);
-                """)
-                
-                # Also inject CSS to apply font to body and all elements as fallback
-                await page.evaluate(f"""
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        * {{
-                            font-family: "{font_name}", sans-serif !important;
-                        }}
-                        body {{
-                            font-family: "{font_name}", sans-serif !important;
-                        }}
-                    `;
-                    document.head.appendChild(style);
-                """)
-                
-                # Wait for fonts to load
-                await page.wait_for_load_state("networkidle")
-                await page.wait_for_timeout(4000)  # Extra time for font rendering and dev server recompilation
-                
-                # Force font to load by checking if it's available
-                await page.evaluate(f"""
-                    document.fonts.ready.then(() => {{
-                        console.log('Fonts loaded');
-                    }});
-                """)
-                await page.wait_for_timeout(2000)  # Wait for fonts.ready
-                
-                # Take full page screenshot
-                await page.screenshot(path=str(screenshot_path), full_page=True)
-                
-                # Verify screenshot was created
-                if not screenshot_path_obj.exists():
-                    raise Exception("Screenshot file was not created")
-                
-                if screenshot_path_obj.stat().st_size == 0:
-                    raise Exception("Screenshot file is empty")
-                
-            finally:
-                await browser.close()
-        
-        return {
-            "success": True,
-            "path": str(screenshot_path)
-        }
-        
-    except ImportError:
-        return {
-            "success": False,
-            "message": "Playwright not installed. Install with: pip install playwright && python -m playwright install chromium"
-        }
-    except Exception as e:
-        return {
-            "success": False,
-            "message": f"Screenshot failed: {str(e)}"
-        }
-
-
-def _take_screenshot(url: str, screenshot_path: str, font_name: str) -> Dict[str, Any]:
-    """Take screenshot - wrapper that handles async/sync contexts"""
-    import asyncio
-    
-    # Check if we're in an async context
-    try:
-        loop = asyncio.get_running_loop()
-        # We're in an async context, use async version
-        # Run in a new thread to avoid blocking
-        import concurrent.futures
-        import threading
-        
-        result = None
-        exception = None
-        
-        def run_async():
-            nonlocal result, exception
-            try:
-                new_loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(new_loop)
-                result = new_loop.run_until_complete(
-                    _take_screenshot_async(url, screenshot_path, font_name)
-                )
-                new_loop.close()
-            except Exception as e:
-                exception = e
-        
-        thread = threading.Thread(target=run_async)
-        thread.start()
-        thread.join(timeout=60)  # 60 second timeout
-        
-        if exception:
-            raise exception
-        
-        if result is None:
-            return {
-                "success": False,
-                "message": "Screenshot operation timed out or failed"
-            }
-        
-        return result
-        
-    except RuntimeError:
-        # No running event loop, use sync API
-        try:
-            from playwright.sync_api import sync_playwright
-            
-            screenshot_path_obj = Path(screenshot_path)
-            screenshot_path_obj.parent.mkdir(parents=True, exist_ok=True)
-            
-            with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
-                page = browser.new_page()
-                
-                try:
-                    # Navigate to the page
-                    page.goto(url, wait_until="networkidle", timeout=30000)
-                    
-                    # Inject Google Fonts CSS directly into the page
-                    font_family_encoded = font_name.replace(" ", "+")
-                    font_css_url = f"https://fonts.googleapis.com/css2?family={font_family_encoded}:wght@400&display=swap"
-                    
-                    # Add Google Fonts link to head
-                    page.evaluate(f"""
-                        const link = document.createElement('link');
-                        link.rel = 'stylesheet';
-                        link.href = '{font_css_url}';
-                        document.head.appendChild(link);
-                    """)
-                    
-                    # Also inject CSS to apply font to body and all elements as fallback
-                    page.evaluate(f"""
-                        const style = document.createElement('style');
-                        style.textContent = `
-                            * {{
-                                font-family: "{font_name}", sans-serif !important;
-                            }}
-                            body {{
-                                font-family: "{font_name}", sans-serif !important;
-                            }}
-                        `;
-                        document.head.appendChild(style);
-                    """)
-                    
-                    # Wait for fonts to load
-                    page.wait_for_load_state("networkidle")
-                    page.wait_for_timeout(4000)  # Extra time for font rendering and dev server recompilation
-                    
-                    # Force font to load
-                    page.evaluate(f"""
-                        document.fonts.ready.then(() => {{
-                            console.log('Fonts loaded');
-                        }});
-                    """)
-                    page.wait_for_timeout(2000)  # Wait for fonts.ready
-                    
-                    # Take full page screenshot
-                    page.screenshot(path=str(screenshot_path), full_page=True)
-                    
-                    # Verify screenshot was created
-                    if not screenshot_path_obj.exists():
-                        raise Exception("Screenshot file was not created")
-                    
-                    if screenshot_path_obj.stat().st_size == 0:
-                        raise Exception("Screenshot file is empty")
-                    
-                finally:
-                    browser.close()
-            
-            return {
-                "success": True,
-                "path": str(screenshot_path)
-            }
-            
-        except ImportError:
-            return {
-                "success": False,
-                "message": "Playwright not installed. Install with: pip install playwright && python -m playwright install chromium"
-            }
-        except Exception as e:
-            return {
-                "success": False,
-                "message": f"Screenshot failed: {str(e)}"
-            }
-
+        with page_url(file_path, url) as target:
+            async with Renderer(viewport=viewport) as renderer:
+                baseline, results = await renderer.compare(
+                    target, known, scope=scope, screenshot_dir=out_dir)
+    except (FileNotFoundError, ValueError) as e:
+        return {"status": "error", "message": str(e)}
+    except Exception as e:  # browser or network failure: tell the agent, don't crash it
+        return {"status": "error", "message": f"Rendering failed: {e}"}
+    summaries = [r.summary() for r in results]
+    return {
+        "status": "success",
+        "screenshots_folder": str(out_dir),
+        "original_screenshot": baseline.screenshot,
+        "results": summaries,
+        "clean": [s["font"] for s in summaries if s["verdict"] == "clean"],
+        "with_warnings": [s["font"] for s in summaries if s["verdict"] == "warnings"],
+        "broken": [s["font"] for s in summaries if s["verdict"] == "broken"],
+        "not_found": {name: {"did_you_mean": hints} for name, hints in not_found.items()},
+    }
