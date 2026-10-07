@@ -25,8 +25,8 @@ damage that is known to be there, and does it stay quiet when there is none?
 
 ## The critic
 
-- **Model:** `gemini-2.5-flash`, with default temperature and default thinking, which
-  is how an agent would normally call it.
+- **Model:** `gemini-3.8-flash` (see amendment 1 below), with default temperature and
+  default thinking, which is how an agent would normally call it.
 - **Output:** structured JSON, enforced by a schema:
   - a list of `problems`, each with a `kind` from a fixed list, `where` (the visible text
     affected) and `evidence`;
@@ -123,6 +123,15 @@ critic finds `faked_bold` reliably, the most subtle Phase 1 problem would be vis
 model, which I don't expect. If the false-alarm rate is high in every condition, the
 critic is unsuitable for finding defects and is used only for preference judgments,
 whose quality Phase 3 tests against people.
+
+## Amendments before data collection
+
+1. **Model changed from `gemini-2.5-flash` to `gemini-3.8-flash`** (2026-10-07). On the
+   first run, the API refused the pre-registered model for new accounts ("no longer
+   available to new users") and recommended `gemini-3.8-flash`. No judgment had been
+   collected: all 5 smoke-test calls failed with that error, and the failed records were
+   discarded. Everything else is unchanged. Cost estimates now use 3.8 Flash's published
+   prices ($0.75 input and $3.75 output per million tokens, through 2026-12-31).
 
 ## Changes after data collection
 
