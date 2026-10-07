@@ -19,11 +19,14 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, ValidationError
 
-DEFAULT_MODEL = os.getenv("FONT_CRITIC_MODEL", "gemini-2.5-flash")
+DEFAULT_MODEL = os.getenv("FONT_CRITIC_MODEL", "gemini-3.8-flash")
+REQUEST_TIMEOUT_MS = 180_000
 
 # Published paid prices per million tokens, as of 2026-10-07
 # (https://ai.google.dev/gemini-api/docs/pricing). Output includes thinking tokens.
+# 3.8 Flash prices are the introductory ones, valid through 2026-12-31.
 PRICES = {
+    "gemini-3.8-flash": (0.75, 3.75),
     "gemini-2.5-flash": (0.30, 2.50),
     "gemini-2.5-flash-lite": (0.10, 0.40),
 }
@@ -125,7 +128,9 @@ class Critic:
     def client(self):
         if self._client is None:  # imported lazily so tests and offline use need no key
             from google import genai
-            self._client = genai.Client()
+            from google.genai import types
+            # A stuck request otherwise blocks forever; a timeout is retried like a 503.
+            self._client = genai.Client(http_options=types.HttpOptions(timeout=REQUEST_TIMEOUT_MS))
         return self._client
 
     def _load_cache(self) -> dict[str, Judgment]:

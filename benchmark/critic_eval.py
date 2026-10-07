@@ -16,6 +16,8 @@ import json
 import random
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from fontagent.critic import DEFAULT_MODEL, Critic
 
 ROOT = Path(__file__).parent
@@ -112,6 +114,7 @@ def main() -> None:
         stages = {s: sum(1 for st, _ in calls if st == s) for s in ("detect", "consistency", "compare")}
         print(f"{len(calls)} calls: {stages}")
         return
+    load_dotenv()  # GOOGLE_API_KEY from .env
     asyncio.run(run(args.model, args.rpm, args.concurrency, args.limit))
 
 

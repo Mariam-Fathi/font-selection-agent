@@ -7,7 +7,8 @@ from google.adk import Agent as LlmAgent
 from tools.font_screenshot import take_font_screenshots
 from tools.google_fonts import search_google_fonts
 
-MODEL = os.getenv("FONT_AGENT_MODEL", "gemini-2.5-flash-lite")
+# gemini-2.5-flash-lite (the capstone's model) is no longer offered to new API keys.
+MODEL = os.getenv("FONT_AGENT_MODEL", "gemini-3.8-flash")
 
 font_selection_agent = LlmAgent(
     name="font_selection_agent",
