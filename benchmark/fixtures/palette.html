@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 60px 80px;
+            position: relative;
+        }
+        
+        .color-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .color-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Arial', sans-serif; /* This will be replaced */
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .divider {
+            width: 1px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .color-description {
+            font-size: 1.1rem;
+            font-weight: 400;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        
+        /* CRIMSON BLOOM */
+        .crimson-bloom {
+            background-color: #8B1A3D;
+        }
+        
+        .crimson-bloom .color-name,
+        .crimson-bloom .color-description {
+            color: #FFFFFF;
+        }
+        
+        .crimson-bloom .divider {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* SOFT LILAC */
+        .soft-lilac {
+            background-color: #D4B5E8;
+        }
+        
+        .soft-lilac .color-name,
+        .soft-lilac .color-description {
+            color: #2D1B3D;
+        }
+        
+        .soft-lilac .divider {
+            background-color: rgba(45, 27, 61, 0.3);
+        }
+        
+        /* ANTIQUE PETAL */
+        .antique-petal {
+            background-color: #E8C5B5;
+        }
+        
+        .antique-petal .color-name,
+        .antique-petal .color-description {
+            color: #3D2B1B;
+        }
+        
+        .antique-petal .divider {
+            background-color: rgba(61, 43, 27, 0.3);
+        }
+        
+        /* DEEP OLIVE */
+        .deep-olive {
+            background-color: #5A6B4A;
+        }
+        
+        .deep-olive .color-name,
+        .deep-olive .color-description {
+            color: #FFFFFF;
+        }
+        
+        .deep-olive .divider {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .color-section {
+                padding: 40px 30px;
+            }
+            
+            .color-content {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            
+            .color-name {
+                font-size: 2rem;
+            }
+            
+            .divider {
+                width: 60px;
+                height: 1px;
+            }
+            
+            .color-description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="color-section crimson-bloom">
+        <div class="color-content">
+            <div class="color-name">CRIMSON BLOOM</div>
+            <div class="divider"></div>
+            <div class="color-description">A deep, rich red inspired by velvety rose petals.</div>
+        </div>
+    </div>
+    
+    <div class="color-section soft-lilac">
+        <div class="color-content">
+            <div class="color-name">SOFT LILAC</div>
+            <div class="divider"></div>
+            <div class="color-description">A soft, dreamy lilac that adds a delicate, romantic touch.</div>
+        </div>
+    </div>
+    
+    <div class="color-section antique-petal">
+        <div class="color-content">
+            <div class="color-name">ANTIQUE PETAL</div>
+            <div class="divider"></div>
+            <div class="color-description">A warm, vintage blush reminiscent of dried florals.</div>
+        </div>
+    </div>
+    
+    <div class="color-section deep-olive">
+        <div class="color-content">
+            <div class="color-name">DEEP OLIVE</div>
+            <div class="divider"></div>
+            <div class="color-description">A deep, earthy green with a hint of vintage charm.</div>
+        </div>
+    </div>
+</body>
+</html>

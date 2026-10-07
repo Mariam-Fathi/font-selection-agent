@@ -60,3 +60,9 @@ logs/
 node_modules/
 npm-debug.log*
 
+
+# Agent output
+previews/
+
+# Benchmark screenshots (CSV results are committed)
+benchmark/results/screenshots/

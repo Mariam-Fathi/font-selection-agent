@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilingual services page</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=block">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: "Cairo", Tahoma, sans-serif; color: #1c2b36; background: #fff; line-height: 1.7; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; background: #0f4c5c; color: white; }
+  header .brand { font-weight: 700; font-size: 22px; }
+  header .lang { width: 92px; height: 34px; line-height: 34px; text-align: center; border: 1px solid #ffffff80; border-radius: 17px; color: inherit; text-decoration: none;
+                 font-size: 14px; white-space: nowrap; overflow: hidden; }
+  .hero { padding: 56px 40px; background: #e8f3f1; }
+  .hero h1 { font-size: 42px; font-weight: 700; line-height: 1.3; }
+  .hero p { font-size: 18px; margin-top: 12px; max-width: 640px; }
+  .hero .cta { display: inline-block; margin-top: 24px; width: 180px; height: 48px; line-height: 48px; text-align: center;
+               background: #e36414; color: white; border-radius: 24px; font-weight: 700; text-decoration: none; white-space: nowrap; overflow: hidden; }
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; padding: 40px; }
+  .service { border: 1px solid #d5e3e0; border-radius: 12px; padding: 20px; }
+  .service h3 { font-size: 19px; font-weight: 700; }
+  .service p { font-size: 15px; color: #4a5c66; }
+  .en { direction: ltr; text-align: left; padding: 32px 40px; background: #f7f7f7; }
+  .en h2 { font-size: 24px; font-weight: 700; }
+  .en p { font-size: 16px; color: #4a5c66; margin-top: 6px; max-width: 640px; }
+  @media (max-width: 600px) { header, .hero, .services, .en { padding-left: 16px; padding-right: 16px; } .hero h1 { font-size: 30px; } }
+</style>
+</head>
+<body>
+  <header>
+    <span class="brand">صنايعي</span>
+    <a class="lang" href="#">English</a>
+  </header>
+  <section class="hero">
+    <h1>فني موثوق لكل إصلاح في بيتك</h1>
+    <p>اطلب سباكًا أو كهربائيًا أو نجارًا خلال دقائق، وتابع وصوله على الخريطة، وادفع بعد انتهاء العمل.</p>
+    <a class="cta" href="#">اطلب فنيًا الآن</a>
+  </section>
+  <section class="services">
+    <div class="service"><h3>سباكة</h3><p>تسريب المياه وتركيب الأدوات الصحية وصيانة السخانات.</p></div>
+    <div class="service"><h3>كهرباء</h3><p>تمديدات جديدة وإصلاح الأعطال وتركيب الإضاءة.</p></div>
+    <div class="service"><h3>نجارة</h3><p>تركيب الأبواب والمطابخ وإصلاح الأثاث.</p></div>
+  </section>
+  <section class="en">
+    <h2>Trusted technicians, on demand</h2>
+    <p>Book a plumber, electrician or carpenter in minutes, follow their arrival on the map, and pay when the job is done.</p>
+  </section>
+</body>
+</html>

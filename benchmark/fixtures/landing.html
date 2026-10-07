@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northwind landing page</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: "Inter", system-ui, sans-serif; color: #1d2433; line-height: 1.5; }
+  .material-symbols-outlined { font-family: "Material Symbols Outlined"; font-size: 24px; line-height: 1; }
+  nav { display: flex; align-items: center; gap: 28px; padding: 18px 48px; border-bottom: 1px solid #e6e8ee; }
+  nav .logo { font-weight: 800; font-size: 20px; margin-right: auto; }
+  nav a { color: #46506a; text-decoration: none; font-size: 15px; white-space: nowrap; }
+  .hero { padding: 72px 48px 56px; max-width: 980px; }
+  .hero h1 { font-size: 56px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+  .hero p { font-size: 19px; color: #46506a; margin-top: 18px; max-width: 620px; }
+  .actions { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+  .btn { display: inline-block; width: 176px; height: 48px; line-height: 48px; text-align: center;
+         border-radius: 10px; font-weight: 600; font-size: 16px; white-space: nowrap; overflow: hidden;
+         text-overflow: ellipsis; text-decoration: none; }
+  .btn.primary { background: #3b5bfd; color: white; }
+  .btn.ghost { border: 1px solid #c9cfdc; color: #1d2433; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 0 48px 56px; }
+  .card { border: 1px solid #e6e8ee; border-radius: 14px; padding: 24px; }
+  .card h3 { font-size: 18px; font-weight: 600; margin: 12px 0 6px; }
+  .card p { font-size: 15px; color: #5a6480; }
+  blockquote { margin: 0 48px 56px; padding: 28px; background: #f5f7fb; border-radius: 14px; font-style: italic; font-size: 20px; }
+  blockquote cite { display: block; margin-top: 12px; font-style: normal; font-size: 14px; color: #5a6480; }
+  footer { padding: 24px 48px; font-size: 13px; color: #7a839b; border-top: 1px solid #e6e8ee; }
+  @media (max-width: 600px) {
+    nav { padding: 14px 16px; gap: 16px; } nav a.extra { display: none; }
+    .hero { padding: 40px 16px; } .hero h1 { font-size: 38px; }
+    .features { padding: 0 16px 40px; } blockquote { margin: 0 16px 40px; } footer { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <span class="logo">Northwind</span>
+    <a href="#" class="extra">Product</a>
+    <a href="#" class="extra">Pricing</a>
+    <a href="#">Docs</a>
+    <a href="#">Sign in</a>
+  </nav>
+  <section class="hero">
+    <h1>Ship analytics your whole team trusts</h1>
+    <p>Northwind turns raw product events into dashboards, funnels and experiments, with every number traced back to the query that made it.</p>
+    <div class="actions">
+      <a class="btn primary" href="#">Start free trial</a>
+      <a class="btn ghost" href="#">Book a demo</a>
+    </div>
+  </section>
+  <section class="features">
+    <div class="card"><span class="material-symbols-outlined">query_stats</span><h3>Funnels in minutes</h3><p>Define steps once and compare every segment side by side.</p></div>
+    <div class="card"><span class="material-symbols-outlined">science</span><h3>Experiments built in</h3><p>Power analysis, guardrails and sample-ratio checks by default.</p></div>
+    <div class="card"><span class="material-symbols-outlined">lock</span><h3>Your data stays yours</h3><p>Runs in your own warehouse, with no copies on our servers.</p></div>
+  </section>
+  <blockquote>&ldquo;We stopped arguing about whose numbers were right and started shipping.&rdquo;<cite>Head of Product, a logistics startup</cite></blockquote>
+  <footer>&copy; 2026 Northwind Analytics &middot; Privacy &middot; Terms</footer>
+</body>
+</html>
